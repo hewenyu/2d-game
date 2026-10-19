@@ -13,7 +13,8 @@ evidence, not dependencies or a second source of project facts.
    [latest maintenance](reviews/2026-10-19-memory-maintenance.md).
 
 Root `AGENTS.md` supplies shared working instructions; `CLAUDE.md` imports it.
-Keep commands and content guides in [README.md](../README.md), lore/art in
+Keep the engineering overview in [README.md](../README.md), user/developer/deployment
+guides in `docs/` (start with [DEVELOPMENT.md](../docs/DEVELOPMENT.md)), lore/art in
 [WORLD.md](../docs/WORLD.md), and measured performance in [PERF.md](../docs/PERF.md).
 Link instead of copying. Code/tests establish implemented behavior; user intent
 is recorded separately. If they disagree, flag the gap rather than silently

@@ -16,7 +16,7 @@
   generation, and relative-path static deployment unless a task says otherwise.
 - Keep simulation, rendering, and platform lifecycle responsibilities separate.
   Performance settings must not change collision geometry or combat balance.
-- Run the applicable checks documented in `README.md`; distinguish automated
+- Run the applicable checks documented in `docs/DEVELOPMENT.md`; distinguish automated
   coverage from manual checks and measured performance from estimates.
 - Keep unrelated local changes intact and out of task commits. Never commit
   secrets, raw chat transcripts, machine-local paths, or generated build output.

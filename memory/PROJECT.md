@@ -6,7 +6,8 @@ Last reviewed: 2026-10-19. Code reference: `cb91da4` (performance foundation).
 
 Huifeng is a browser-based, single-player 2D action game with six procedural
 levels across two chapters. Art and audio are generated in code. See
-`docs/WORLD.md` for visual/lore direction and `README.md` for play and development.
+`docs/WORLD.md` for visual/lore direction, `docs/PLAYING.md` for play, and
+`docs/DEVELOPMENT.md` for development. `README.md` is the engineering overview.
 
 - Strict TypeScript + Vite, Canvas 2D and Web Audio; no runtime package dependencies
   or backend. The build uses `base: './'` for subpath deployment.
@@ -46,6 +47,6 @@ levels across two chapters. Art and audio are generated in code. See
 - Low quality reduces drawing, not the allocation of all background layers.
 - Seeded maps are reproducible; combat AI/effects are not deterministic replays.
 
-Use `README.md` for Node requirements, test/build/browser commands, and CI scope;
+Use `docs/DEVELOPMENT.md` for Node requirements, test/build/browser commands, and CI scope;
 `docs/PERF.md` for benchmark reproduction and measurement limits. Dated review
 results are historical evidence, not current CI, full-playthrough, or device guarantees.
