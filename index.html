@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>回锋 · 沉钟寺</title>
+  <meta name="description" content="回锋 · 沉钟寺 —— 一款浏览器里的 2D 横版魂系小品：随机箱庭关卡，一层层向下，掷刃与回锋。" />
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+  <style>
+    html, body { margin: 0; height: 100%; background: #030406; overflow: hidden; }
+    body { display: flex; align-items: center; justify-content: center; }
+    canvas { display: block; outline: none; cursor: none; }
+    #touch-note { display: none; position: fixed; left: 0; right: 0; bottom: 12px; text-align: center; color: #9aa3b8; font: 14px serif; pointer-events: none; }
+    @media (pointer: coarse) { #touch-note { display: block; } }
+  </style>
+</head>
+<body>
+  <canvas id="game" tabindex="0"></canvas>
+  <div id="touch-note">本作需要键盘（或键盘 + 鼠标）游玩</div>
+  <noscript style="color:#ccc">需要启用 JavaScript。</noscript>
+  <script type="module" src="/src/main.ts"></script>
+</body>
+</html>
