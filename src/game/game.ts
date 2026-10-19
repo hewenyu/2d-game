@@ -14,6 +14,7 @@ import { BIOMES } from '../world/biomes';
 import { drawHUD } from './hud';
 import { Level } from './level';
 import { drawDeath, drawPause, drawPrologue, drawRead, drawRest, drawTitle, drawVictory } from './screens';
+import { defaultSave, parseSave, recordLevelReached, recordVictory, SAVE_KEY, type Save } from './save';
 import { noUpgrades, statsFor, UPGRADES, type Owned } from './upgrades';
 import { EPILOGUE_T, PROLOGUE_T } from './screens';
 
@@ -34,11 +35,9 @@ export interface Run {
   practice: boolean;
 }
 
-interface Save { bestDepth: number; bestTime: number | null; wins: number }
-
 function loadSave(): Save {
-  try { return { bestDepth: 0, bestTime: null, wins: 0, ...JSON.parse(localStorage.getItem('huifeng_save') || '{}') }; }
-  catch { return { bestDepth: 0, bestTime: null, wins: 0 }; }
+  // getItem 本身在隐私模式下可能抛错，解析容错在 parseSave 里。
+  try { return parseSave(localStorage.getItem(SAVE_KEY)); } catch { return defaultSave(); }
 }
 
 export class Game {
@@ -100,7 +99,7 @@ export class Game {
     else this.showBanner(`第 ${run.depth + 1} 层${name ? ' · ' + name : ''}`, info.chapter.name, 3);
     setAmbience('level');
     input.clear();
-    if (!run.practice && run.depth > this.save.bestDepth) { this.save.bestDepth = run.depth; this.persist(); }
+    if (recordLevelReached(this.save, run)) this.persist();
   }
 
   private syncDrop() {
@@ -127,16 +126,12 @@ export class Game {
     const run = this.run!;
     this.state = 'victory'; this.stateT = 0;
     setAmbience('none');
-    if (!run.practice) {
-      this.save.wins++;
-      if (this.save.bestTime === null || run.time < this.save.bestTime) this.save.bestTime = run.time;
-    }
-    this.save.bestDepth = Math.max(this.save.bestDepth, TOTAL_LEVELS);
-    this.persist();
+    // 练习局不计胜场、最佳时间，也不把 bestDepth 顶到满层（与 README 一致）。
+    if (recordVictory(this.save, run, TOTAL_LEVELS)) this.persist();
     this.fade = 0; this.fadeTarget = 0; this.fadeCb = null;
   }
 
-  private persist() { try { localStorage.setItem('huifeng_save', JSON.stringify(this.save)); } catch { /* 隐私模式 */ } }
+  private persist() { try { localStorage.setItem(SAVE_KEY, JSON.stringify(this.save)); } catch { /* 隐私模式 */ } }
 
   addEmbers(n: number) { if (this.run) this.run.embers += n; }
   recoverDrop() { const r = this.run!; if (r.drop) { r.embers += r.drop.amount; r.drop = null; } }

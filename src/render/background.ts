@@ -2,6 +2,7 @@
 // 每层在关卡载入时按种子预渲染到离屏画布（模糊即景深），运行时只做平移。
 import { VIEW_H, VIEW_W } from '../config';
 import type { Camera } from '../core/camera';
+import { quality } from '../core/quality';
 import { RNG } from '../core/rng';
 import type { Biome } from '../world/biomes';
 import { glow } from './draw';
@@ -202,12 +203,14 @@ export class Background {
     const grd = ctx.createLinearGradient(0, 0, 0, VIEW_H);
     grd.addColorStop(0, b.sky[0]); grd.addColorStop(1, b.sky[1]);
     ctx.fillStyle = grd; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
-    for (let i = 0; i < this.layers.length; i++) {
+    // 低画质档位下少画几层视差；层是按「由远及近」建的，保留前 N 层。
+    const n = Math.min(this.layers.length, quality.bgLayers);
+    for (let i = 0; i < n; i++) {
       const L = this.layers[i];
       const ox = -(cam.x - VIEW_W / 2) * L.f - M + cam.sx * L.f;
       const oy = -(cam.y - VIEW_H / 2) * L.f - M + cam.sy * L.f;
       ctx.drawImage(L.canvas, Math.round(ox), Math.round(oy));
-      if (i === 1) this.drawShafts(ctx, cam, time);
+      if (i === 1 && quality.ambient) this.drawShafts(ctx, cam, time);
     }
   }
 
@@ -235,16 +238,18 @@ export class Background {
   drawFront(ctx: CanvasRenderingContext2D, cam: Camera, time: number) {
     const b = this.biome;
     // 漂浮尘埃
-    ctx.save();
-    ctx.globalCompositeOperation = 'lighter';
-    for (const m of this.motes) {
-      const x = ((m.x - cam.x * m.z * 0.6 + Math.sin(time * 0.3 + m.ph) * 20) % VIEW_W + VIEW_W) % VIEW_W;
-      const y = ((m.y - cam.y * m.z * 0.6 - time * 8 * m.z) % VIEW_H + VIEW_H) % VIEW_H;
-      const a = 0.25 + 0.25 * Math.sin(time * 1.3 + m.ph);
-      ctx.fillStyle = `rgba(${b.light},${a * Math.min(1, m.z)})`;
-      ctx.beginPath(); ctx.arc(x, y, m.s * m.z, 0, Math.PI * 2); ctx.fill();
+    if (quality.ambient) {
+      ctx.save();
+      ctx.globalCompositeOperation = 'lighter';
+      for (const m of this.motes) {
+        const x = ((m.x - cam.x * m.z * 0.6 + Math.sin(time * 0.3 + m.ph) * 20) % VIEW_W + VIEW_W) % VIEW_W;
+        const y = ((m.y - cam.y * m.z * 0.6 - time * 8 * m.z) % VIEW_H + VIEW_H) % VIEW_H;
+        const a = 0.25 + 0.25 * Math.sin(time * 1.3 + m.ph);
+        ctx.fillStyle = `rgba(${b.light},${a * Math.min(1, m.z)})`;
+        ctx.beginPath(); ctx.arc(x, y, m.s * m.z, 0, Math.PI * 2); ctx.fill();
+      }
+      ctx.restore();
     }
-    ctx.restore();
     // 底部雾带
     const fogY = VIEW_H * 0.62;
     const grd = ctx.createLinearGradient(0, fogY, 0, VIEW_H);
