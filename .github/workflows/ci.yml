@@ -1,0 +1,39 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm run test:unit
+      - run: npm run build
+
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm run build
+      - name: 浏览器回归（backing 上限 / 粒子 / 记录 / 输入）
+        run: |
+          npx vite preview --host 127.0.0.1 --port 5399 --strictPort &
+          for i in $(seq 1 30); do
+            curl -sf -o /dev/null http://127.0.0.1:5399/ && break
+            sleep 1
+          done
+          npm run test:browser -- http://127.0.0.1:5399/

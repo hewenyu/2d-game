@@ -66,7 +66,7 @@ class Input {
     });
     addEventListener('mouseup', (e) => this.buttons.delete(e.button));
     canvas.addEventListener('contextmenu', (e) => e.preventDefault());
-    addEventListener('blur', () => { this.codes.clear(); this.buttons.clear(); });
+    addEventListener('blur', () => this.reset());
   }
 
   held(a: Action): boolean {
@@ -83,6 +83,9 @@ class Input {
   }
 
   clear() { this.pressedAt.clear(); }
+
+  /** 清掉按住状态与输入缓冲：失焦 / 切后台后不应该有键一直「按着」 */
+  reset() { this.codes.clear(); this.buttons.clear(); this.pressedAt.clear(); }
 }
 
 export const input = new Input();

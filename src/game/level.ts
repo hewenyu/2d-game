@@ -3,6 +3,7 @@ import { CAM_ZOOM, CAM_ZOOM_BOSS, TILE, VIEW_H, VIEW_W } from '../config';
 import { Camera } from '../core/camera';
 import { input } from '../core/input';
 import { clamp, overlap, rand } from '../core/math';
+import { quality } from '../core/quality';
 import { sfx } from '../core/audio';
 import type { LevelConfig } from '../data/chapters';
 import { Blade } from '../entities/blade';
@@ -49,6 +50,8 @@ export class Level {
   private pitTimer = -1;
   private hitCounter = 1;
   private landedId = -1;
+  /** 出口光尘的生成计时器：按 dt 累积，与帧率无关 */
+  private exitFx = 0;
 
   constructor(
     readonly game: Game,
@@ -213,6 +216,13 @@ export class Level {
     p.update(dt);
     this.blade.update(dt);
 
+    // 出口的深渊光尘：以前在 draw() 里按「每次绘制 30% 概率」生成，暂停/阅读/死亡等
+    // 只画不更新的状态下会无限堆积。现在按 dt 生成，速率与帧率无关。
+    if (this.data.exitX !== null && this.data.exitY !== null) {
+      this.exitFx += dt * 18;
+      while (this.exitFx >= 1) { this.exitFx -= 1; this.spawnExitMote(); }
+    }
+
     // 灯龛
     for (const s of this.shrines) {
       if (!s.near(this) || p.dead) continue;
@@ -356,7 +366,6 @@ export class Level {
     if (this.data.exitX !== null && this.data.exitY !== null) {
       const ex = this.data.exitX, ey = this.data.exitY;
       addGlow(ctx, ex, ey + 40, 200, b.light, 0.18 + 0.05 * Math.sin(this.time * 2));
-      if (Math.random() < 0.3) this.particles.spawn({ x: ex + rand(-90, 90), y: ey + 40, vy: -rand(40, 110), life: 1.4, color: `rgba(${b.light},0.8)`, add: true, size: 2, drag: 0.5 });
     }
     this.terrain.draw(ctx, cam);
     if (this.data.arena) this.drawGate(ctx);
@@ -381,12 +390,23 @@ export class Level {
     ctx.globalAlpha = 1;
     cam.end(ctx);
     this.bg.drawFront(ctx, cam, this.time);
-    // 暗角与色调
-    const p = cam.toScreen(this.player.cx, this.player.cy);
-    const g = ctx.createRadialGradient(p.x, p.y, 140, VIEW_W / 2, VIEW_H / 2, 640);
-    g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.7)');
-    ctx.fillStyle = g; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
-    ctx.fillStyle = `rgba(${b.grade},0.12)`; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+    // 暗角与色调（两次全屏填充，低画质档位下省略）
+    if (quality.postFx) {
+      const p = cam.toScreen(this.player.cx, this.player.cy);
+      const g = ctx.createRadialGradient(p.x, p.y, 140, VIEW_W / 2, VIEW_H / 2, 640);
+      g.addColorStop(0, 'rgba(0,0,0,0)'); g.addColorStop(1, 'rgba(0,0,0,0.7)');
+      ctx.fillStyle = g; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+      ctx.fillStyle = `rgba(${b.grade},0.12)`; ctx.fillRect(0, 0, VIEW_W, VIEW_H);
+    }
+  }
+
+  /** 出口光尘：一粒向上飘的加色光点 */
+  private spawnExitMote() {
+    const ex = this.data.exitX!, ey = this.data.exitY!;
+    this.particles.spawn({
+      x: ex + rand(-90, 90), y: ey + 40, vy: -rand(40, 110), life: 1.4,
+      color: `rgba(${this.biome.light},0.8)`, add: true, size: 2, drag: 0.5,
+    });
   }
 
   /** 受击的敌人在顿帧里沿受击方向高频抖动，抖幅随时间衰减 */

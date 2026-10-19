@@ -1,5 +1,12 @@
 import { rand } from '../core/math';
 
+/**
+ * 粒子硬上限。粒子的生命周期由 update(dt) 推进，任何「只绘制不更新」的状态
+ * （暂停、阅读碑文、死亡、休憩、结算）都不应该让它无界增长。满了就顶掉最旧的，
+ * 保证新产生的战斗反馈（火花、命中、破防）不会被装饰粒子挤掉。
+ */
+export const MAX_PARTICLES = 512;
+
 export type PKind = 'dot' | 'streak' | 'smoke' | 'ring' | 'shard' | 'wisp';
 export interface Particle {
   x: number; y: number; vx: number; vy: number;
@@ -17,6 +24,7 @@ export class Particles {
 
   spawn(p: Partial<Particle> & { x: number; y: number }) {
     const life = p.life ?? 0.5;
+    if (this.list.length >= MAX_PARTICLES) this.list.splice(0, this.list.length - MAX_PARTICLES + 1);
     this.list.push({
       vx: 0, vy: 0, size: 3, color: '#fff', kind: 'dot', grav: 0, drag: 2, add: false, r1: 40, rot: 0, vr: 0,
       ...p, life, max: p.max ?? life,

@@ -1,0 +1,339 @@
+{
+  "env": {
+    "url": "http://127.0.0.1:5399/?q=high",
+    "browserVersion": "156.0.8078.4",
+    "channel": "bundled-headless",
+    "args": [],
+    "headless": true,
+    "os": "darwin arm64 (v26.10.0)",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frames": 60,
+    "flush": "isolated segments only: getImageData(0,0,1,1); raf phase is submission-only",
+    "note": "default: headless chromium + forced readback; GPU usage is not auto-detected"
+  },
+  "results": [
+    {
+      "dpr": 1,
+      "depth": 0,
+      "loadMs": 13.5,
+      "backing": [
+        1920,
+        1080
+      ],
+      "transform": [
+        2,
+        2
+      ],
+      "liveBacking": [
+        1920,
+        1080
+      ],
+      "quality": null,
+      "map": [
+        120,
+        51
+      ],
+      "enemies": 7,
+      "particles": 18,
+      "layerMB": 29.1,
+      "layers": "1486x852 2062x1070 2811x1354",
+      "isolated": {
+        "update2steps": "0.10/0.30",
+        "draw": "35.00/38.90",
+        "back": "21.50/22.80",
+        "terrain": "1.30/1.90",
+        "front": "1.90/2.70"
+      },
+      "raf": {
+        "interval": "33.30/33.40",
+        "updatePerFrame": "0.10/0.20",
+        "draw": "0.50/0.80",
+        "stepsPerFrame": "4.00/5.00",
+        "fpsMedian": 30
+      }
+    },
+    {
+      "dpr": 1,
+      "depth": 2,
+      "loadMs": 7.199999988079071,
+      "backing": [
+        1920,
+        1080
+      ],
+      "transform": [
+        2,
+        2
+      ],
+      "liveBacking": [
+        1920,
+        1080
+      ],
+      "quality": null,
+      "map": [
+        90,
+        51
+      ],
+      "enemies": 5,
+      "particles": 0,
+      "layerMB": 24.4,
+      "layers": "1371x852 1755x1070 2254x1354",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "35.60/40.70",
+        "back": "21.90/26.10",
+        "terrain": "1.10/1.70",
+        "front": "1.80/3.80"
+      },
+      "raf": {
+        "interval": "33.30/33.40",
+        "updatePerFrame": "0.00/0.20",
+        "draw": "0.70/1.10",
+        "stepsPerFrame": "4.00/5.00",
+        "fpsMedian": 30
+      }
+    },
+    {
+      "dpr": 1,
+      "depth": 3,
+      "loadMs": 9.799999997019768,
+      "backing": [
+        1920,
+        1080
+      ],
+      "transform": [
+        2,
+        2
+      ],
+      "liveBacking": [
+        1920,
+        1080
+      ],
+      "quality": null,
+      "map": [
+        120,
+        68
+      ],
+      "enemies": 13,
+      "particles": 18,
+      "layerMB": 34.5,
+      "layers": "1486x917 2062x1244 2811x1669",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "34.40/50.20",
+        "back": "20.20/27.90",
+        "terrain": "1.50/2.40",
+        "front": "2.00/3.30"
+      },
+      "raf": {
+        "interval": "33.30/33.40",
+        "updatePerFrame": "0.10/0.10",
+        "draw": "19.30/20.40",
+        "stepsPerFrame": "4.00/5.00",
+        "fpsMedian": 30
+      }
+    },
+    {
+      "dpr": 1,
+      "depth": 5,
+      "loadMs": 4,
+      "backing": [
+        1920,
+        1080
+      ],
+      "transform": [
+        2,
+        2
+      ],
+      "liveBacking": [
+        1920,
+        1080
+      ],
+      "quality": null,
+      "map": [
+        90,
+        51
+      ],
+      "enemies": 6,
+      "particles": 0,
+      "layerMB": 24.4,
+      "layers": "1371x852 1755x1070 2254x1354",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "36.50/48.50",
+        "back": "21.30/30.00",
+        "terrain": "1.50/2.70",
+        "front": "1.90/3.20"
+      },
+      "raf": {
+        "interval": "33.30/33.40",
+        "updatePerFrame": "0.00/0.10",
+        "draw": "0.60/0.90",
+        "stepsPerFrame": "4.00/5.00",
+        "fpsMedian": 30
+      }
+    },
+    {
+      "dpr": 2,
+      "depth": 0,
+      "loadMs": 13.700000002980232,
+      "backing": [
+        3840,
+        2160
+      ],
+      "transform": [
+        4,
+        4
+      ],
+      "liveBacking": [
+        3840,
+        2160
+      ],
+      "quality": null,
+      "map": [
+        120,
+        51
+      ],
+      "enemies": 7,
+      "particles": 18,
+      "layerMB": 29.1,
+      "layers": "1486x852 2062x1070 2811x1354",
+      "isolated": {
+        "update2steps": "0.10/0.30",
+        "draw": "138.90/183.20",
+        "back": "88.60/121.00",
+        "terrain": "3.20/6.90",
+        "front": "7.30/11.50"
+      },
+      "raf": {
+        "interval": "133.20/133.40",
+        "updatePerFrame": "0.10/0.30",
+        "draw": "0.50/0.80",
+        "stepsPerFrame": "12.00/12.00",
+        "fpsMedian": 8
+      }
+    },
+    {
+      "dpr": 2,
+      "depth": 2,
+      "loadMs": 5.799999997019768,
+      "backing": [
+        3840,
+        2160
+      ],
+      "transform": [
+        4,
+        4
+      ],
+      "liveBacking": [
+        3840,
+        2160
+      ],
+      "quality": null,
+      "map": [
+        90,
+        51
+      ],
+      "enemies": 5,
+      "particles": 0,
+      "layerMB": 24.4,
+      "layers": "1371x852 1755x1070 2254x1354",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "131.70/166.20",
+        "back": "84.70/101.00",
+        "terrain": "2.30/3.90",
+        "front": "6.90/9.20"
+      },
+      "raf": {
+        "interval": "116.70/133.40",
+        "updatePerFrame": "0.10/0.20",
+        "draw": "0.60/1.00",
+        "stepsPerFrame": "12.00/12.00",
+        "fpsMedian": 9
+      }
+    },
+    {
+      "dpr": 2,
+      "depth": 3,
+      "loadMs": 11,
+      "backing": [
+        3840,
+        2160
+      ],
+      "transform": [
+        4,
+        4
+      ],
+      "liveBacking": [
+        3840,
+        2160
+      ],
+      "quality": null,
+      "map": [
+        120,
+        68
+      ],
+      "enemies": 13,
+      "particles": 18,
+      "layerMB": 34.5,
+      "layers": "1486x917 2062x1244 2811x1669",
+      "isolated": {
+        "update2steps": "0.10/0.10",
+        "draw": "118.10/129.30",
+        "back": "72.10/76.60",
+        "terrain": "3.20/3.90",
+        "front": "6.80/7.90"
+      },
+      "raf": {
+        "interval": "116.60/116.70",
+        "updatePerFrame": "0.10/0.20",
+        "draw": "71.00/71.80",
+        "stepsPerFrame": "12.00/12.00",
+        "fpsMedian": 9
+      }
+    },
+    {
+      "dpr": 2,
+      "depth": 5,
+      "loadMs": 5.200000002980232,
+      "backing": [
+        3840,
+        2160
+      ],
+      "transform": [
+        4,
+        4
+      ],
+      "liveBacking": [
+        3840,
+        2160
+      ],
+      "quality": null,
+      "map": [
+        90,
+        51
+      ],
+      "enemies": 6,
+      "particles": 0,
+      "layerMB": 24.4,
+      "layers": "1371x852 1755x1070 2254x1354",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "119.90/128.60",
+        "back": "73.60/77.60",
+        "terrain": "2.70/3.30",
+        "front": "6.80/7.60"
+      },
+      "raf": {
+        "interval": "116.60/116.70",
+        "updatePerFrame": "0.00/0.10",
+        "draw": "0.50/0.70",
+        "stepsPerFrame": "12.00/12.00",
+        "fpsMedian": 9
+      }
+    }
+  ]
+}

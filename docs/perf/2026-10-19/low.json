@@ -1,0 +1,99 @@
+{
+  "env": {
+    "url": "http://127.0.0.1:5399/?q=low",
+    "browserVersion": "156.0.8078.4",
+    "channel": "bundled-headless",
+    "args": [],
+    "headless": true,
+    "os": "darwin arm64 (v26.10.0)",
+    "viewport": {
+      "width": 1920,
+      "height": 1080
+    },
+    "frames": 60,
+    "flush": "isolated segments only: getImageData(0,0,1,1); raf phase is submission-only",
+    "note": "default: headless chromium + forced readback; GPU usage is not auto-detected"
+  },
+  "results": [
+    {
+      "dpr": 2,
+      "depth": 0,
+      "loadMs": 11.200000002980232,
+      "backing": [
+        1280,
+        720
+      ],
+      "transform": [
+        1.333,
+        1.333
+      ],
+      "liveBacking": [
+        1280,
+        720
+      ],
+      "quality": null,
+      "map": [
+        120,
+        51
+      ],
+      "enemies": 7,
+      "particles": 18,
+      "layerMB": 29.1,
+      "layers": "1486x852 2062x1070 2811x1354",
+      "isolated": {
+        "update2steps": "0.10/0.30",
+        "draw": "9.50/10.30",
+        "back": "5.60/6.70",
+        "terrain": "0.90/1.40",
+        "front": "0.80/0.90"
+      },
+      "raf": {
+        "interval": "16.70/16.70",
+        "updatePerFrame": "0.10/0.20",
+        "draw": "0.30/0.40",
+        "stepsPerFrame": "3.00/3.00",
+        "fpsMedian": 60
+      }
+    },
+    {
+      "dpr": 2,
+      "depth": 3,
+      "loadMs": 8.099999994039536,
+      "backing": [
+        1280,
+        720
+      ],
+      "transform": [
+        1.333,
+        1.333
+      ],
+      "liveBacking": [
+        1280,
+        720
+      ],
+      "quality": null,
+      "map": [
+        120,
+        68
+      ],
+      "enemies": 13,
+      "particles": 18,
+      "layerMB": 34.5,
+      "layers": "1486x917 2062x1244 2811x1669",
+      "isolated": {
+        "update2steps": "0.10/0.20",
+        "draw": "9.60/12.20",
+        "back": "5.40/6.30",
+        "terrain": "0.90/1.20",
+        "front": "0.80/1.00"
+      },
+      "raf": {
+        "interval": "16.70/16.80",
+        "updatePerFrame": "0.00/0.10",
+        "draw": "0.40/0.50",
+        "stepsPerFrame": "3.00/3.00",
+        "fpsMedian": 60
+      }
+    }
+  ]
+}
